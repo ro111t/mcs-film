@@ -35,9 +35,29 @@ export interface Profile {
   gear: string[];
   availability: string;
   experience_level: "beginner" | "intermediate" | "advanced";
+  team_role_name: string | null;
+  team_permissions: TeamPermissions;
   created_at: string;
   updated_at: string;
 }
+
+export interface TeamPermissions {
+  can_manage_events?: boolean;
+  can_manage_jobs?: boolean;
+  can_manage_feed?: boolean;
+  can_manage_members?: boolean;
+  can_manage_seasons?: boolean;
+  can_manage_roles?: boolean;
+}
+
+export const PERMISSION_OPTIONS = [
+  { key: "can_manage_events", label: "Manage Events", description: "Create and edit events, meetings, and screenings" },
+  { key: "can_manage_jobs", label: "Manage Jobs", description: "Post crew calls and job listings" },
+  { key: "can_manage_feed", label: "Manage Feed", description: "Pin/delete posts, post announcements" },
+  { key: "can_manage_members", label: "Manage Members", description: "Toggle member visibility, view all profiles" },
+  { key: "can_manage_seasons", label: "Manage Seasons", description: "Create and edit curated collections" },
+  { key: "can_manage_roles", label: "Manage Roles", description: "Assign roles and permissions to other members" },
+] as const;
 
 export interface PortfolioItem {
   id: string;

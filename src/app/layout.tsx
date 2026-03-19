@@ -14,8 +14,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Frankenstein",
-  description: "A community platform for film students to showcase their work",
+  title: "MCS — Media Creative Society",
+  description: "The creative collective for filmmakers, photographers, and visual storytellers",
 };
 
 export default function RootLayout({
@@ -31,6 +31,17 @@ export default function RootLayout({
         <div className="film-grain" />
         <Navbar />
         <main>{children}</main>
+        <footer className="border-t border-border/50 bg-background">
+          <div className="mx-auto flex max-w-7xl flex-col items-center gap-3 px-6 py-10 sm:flex-row sm:justify-between">
+            <div className="flex items-center gap-2.5">
+              <img src="/mcs-logo.png" alt="MCS" className="h-6 w-6 object-contain" />
+              <span className="text-xs font-semibold text-foreground/60">Media Creative Society</span>
+            </div>
+            <p className="text-[11px] font-medium uppercase tracking-[0.2em] text-muted/40">
+              MCS — A Common Sense Product
+            </p>
+          </div>
+        </footer>
       </body>
     </html>
   );

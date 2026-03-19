@@ -5,7 +5,7 @@ import { FadeIn, StaggerChildren, StaggerItem } from "@/components/motion";
 export const dynamic = "force-dynamic";
 
 export const metadata = {
-  title: "Members | Frank",
+  title: "Members | MCS",
   description: "Browse our film club members and their portfolios",
 };
 

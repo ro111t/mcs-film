@@ -90,7 +90,7 @@ export default async function Home() {
             </p>
             <Link
               href="/login"
-              className="mt-8 inline-flex items-center gap-2 rounded-full bg-accent px-8 py-3 text-sm font-semibold text-background transition-all duration-300 hover:bg-accent/80 hover:shadow-[0_0_30px_rgba(78,205,196,0.25)]"
+              className="mt-8 inline-flex items-center gap-2 rounded-full bg-accent px-8 py-3 text-sm font-semibold text-background transition-all duration-300 hover:bg-accent/80 hover:shadow-[0_0_30px_rgba(220,38,38,0.25)]"
             >
               Get Started
               <ArrowRight className="h-4 w-4" />

@@ -16,10 +16,10 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     .eq("is_active", true)
     .single();
 
-  if (!chapter) return { title: "Chapter Not Found | Frank" };
+  if (!chapter) return { title: "Chapter Not Found | MCS" };
 
   return {
-    title: `${chapter.name} | Frank`,
+    title: `${chapter.name} | MCS`,
     description: chapter.description || `${chapter.name} — ${chapter.school}`,
   };
 }

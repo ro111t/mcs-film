@@ -62,12 +62,12 @@ export default function Navbar() {
           <motion.div
             whileHover={{ rotate: 15, scale: 1.1 }}
             transition={{ type: "spring", stiffness: 300 }}
-            className="flex h-9 w-9 items-center justify-center rounded-lg bg-accent/10 text-accent"
+            className="flex h-9 w-9 items-center justify-center overflow-hidden rounded-lg"
           >
-            <Film className="h-5 w-5" />
+            <img src="/mcs-logo.png" alt="MCS" className="h-9 w-9 object-contain" />
           </motion.div>
           <span className="text-lg font-bold tracking-tight text-foreground">
-            Frank
+            MCS
           </span>
         </Link>
 
@@ -105,7 +105,7 @@ export default function Navbar() {
           ) : (
             <Link
               href="/login"
-              className="ml-3 flex items-center gap-2 rounded-full bg-accent px-5 py-2 text-sm font-semibold text-background transition-all duration-300 hover:bg-accent/80 hover:shadow-[0_0_20px_rgba(78,205,196,0.3)]"
+              className="ml-3 flex items-center gap-2 rounded-full bg-accent px-5 py-2 text-sm font-semibold text-background transition-all duration-300 hover:bg-accent/80 hover:shadow-[0_0_20px_rgba(220,38,38,0.3)]"
             >
               Enter
             </Link>

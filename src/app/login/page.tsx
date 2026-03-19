@@ -50,7 +50,7 @@ export default function LoginPage() {
   return (
     <div className="relative flex min-h-screen items-center justify-center px-4">
       {/* Background effects */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_rgba(78,205,196,0.06)_0%,_transparent_50%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_rgba(220,38,38,0.06)_0%,_transparent_50%)]" />
       <div
         className="absolute inset-0 opacity-[0.02]"
         style={{
@@ -72,9 +72,9 @@ export default function LoginPage() {
             initial={{ scale: 0.8, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             transition={{ duration: 0.5, delay: 0.1 }}
-            className="mx-auto mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-accent/10 text-accent"
+            className="mx-auto mb-6 flex h-14 w-14 items-center justify-center overflow-hidden rounded-2xl"
           >
-            <Film className="h-7 w-7" />
+            <img src="/mcs-logo.png" alt="MCS" className="h-14 w-14 object-contain" />
           </motion.div>
           <AnimatePresence mode="wait">
             <motion.div
@@ -181,7 +181,7 @@ export default function LoginPage() {
             disabled={loading}
             whileHover={{ scale: 1.01 }}
             whileTap={{ scale: 0.98 }}
-            className="group flex w-full items-center justify-center gap-2 rounded-xl bg-accent py-3.5 text-sm font-semibold text-background transition-all duration-300 hover:shadow-[0_0_30px_rgba(78,205,196,0.25)] disabled:opacity-50"
+            className="group flex w-full items-center justify-center gap-2 rounded-xl bg-accent py-3.5 text-sm font-semibold text-background transition-all duration-300 hover:shadow-[0_0_30px_rgba(220,38,38,0.25)] disabled:opacity-50"
           >
             {loading ? (
               <motion.div

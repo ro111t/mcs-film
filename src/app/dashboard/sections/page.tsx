@@ -294,7 +294,7 @@ export default function SectionsPage() {
       <AnimatePresence>
         {saved && (
           <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -20 }} className="fixed left-0 right-0 top-20 z-50 flex justify-center pointer-events-none">
-            <div className="inline-flex items-center gap-2 rounded-full bg-accent px-5 py-2.5 text-sm font-semibold text-background shadow-[0_0_30px_rgba(78,205,196,0.3)]">
+            <div className="inline-flex items-center gap-2 rounded-full bg-accent px-5 py-2.5 text-sm font-semibold text-background shadow-[0_0_30px_rgba(220,38,38,0.3)]">
               <Check className="h-4 w-4" /> All changes saved!
             </div>
           </motion.div>
@@ -384,7 +384,7 @@ export default function SectionsPage() {
           </div>
         ) : (
           <div className="relative flex h-56 w-full items-center justify-center overflow-hidden bg-surface sm:h-72 lg:h-80">
-            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_rgba(78,205,196,0.04)_0%,_transparent_70%)]" />
+            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_rgba(220,38,38,0.04)_0%,_transparent_70%)]" />
             <div className="flex flex-col items-center gap-2 text-muted/30 transition-colors group-hover/banner:text-accent/40">
               <Upload className="h-8 w-8" />
               <span className="text-xs font-medium">Click to add banner</span>
@@ -477,16 +477,20 @@ export default function SectionsPage() {
         </div>
 
         {/* ── save bar ── */}
-        <div className="mb-10 flex items-center justify-between">
-          <Link href="/dashboard" className="inline-flex items-center gap-2 text-sm font-medium text-muted hover:text-accent">
-            <ArrowLeft className="h-4 w-4" /> Dashboard
-          </Link>
+        <div className="mb-10 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+          <div className="flex items-center gap-2 text-sm">
+            <Link href="/dashboard" className="font-medium text-muted transition-all duration-300 hover:text-accent">
+              Dashboard
+            </Link>
+            <span className="text-border">/</span>
+            <span className="font-medium text-foreground">Page Builder</span>
+          </div>
           <div className="flex items-center gap-3">
-            <button onClick={() => { setShowUpload(true); }} className="inline-flex items-center gap-2 rounded-xl border border-border px-4 py-2.5 text-xs font-medium text-muted hover:border-accent/30 hover:text-accent">
-              <Plus className="h-3.5 w-3.5" /> Add Work
+            <button onClick={() => { setShowUpload(true); }} className="inline-flex items-center gap-2 rounded-xl border border-border px-5 py-3 text-sm font-medium text-muted hover:border-accent/30 hover:text-accent active:scale-95 transition-all">
+              <Plus className="h-4 w-4" /> Add Work
             </button>
             <button onClick={saveAll} disabled={saving}
-              className="inline-flex items-center gap-2 rounded-xl bg-accent px-6 py-2.5 text-sm font-semibold text-background hover:bg-accent/80 disabled:opacity-40">
+              className="inline-flex items-center gap-2 rounded-xl bg-accent px-7 py-3 text-sm font-semibold text-background hover:bg-accent/80 disabled:opacity-40 active:scale-95 transition-all">
               {saving ? <Loader2 className="h-4 w-4 animate-spin" /> : <Save className="h-4 w-4" />}
               {saving ? "Saving..." : "Save All"}
             </button>

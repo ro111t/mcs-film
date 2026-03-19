@@ -1,6 +1,6 @@
-# Frank — MCS Club Platform
+# Common Sense — Creative Collective Platform
 
-A community platform for film & media club members to create profiles, showcase portfolios, and be discovered. Members create/edit their own content; anyone can browse publicly.
+A community platform for creative collectives to create profiles, showcase portfolios, and be discovered. Members create/edit their own content; anyone can browse publicly.
 
 ## Tech Stack
 
@@ -50,38 +50,7 @@ After running all 13, run this one extra command to refresh the API cache:
 NOTIFY pgrst, 'reload schema';
 ```
 
-### Step 3 — Create Storage Buckets
-
-Still in the **SQL Editor**, run this to create all three storage buckets and their access policies:
-
-```sql
--- Create buckets
-INSERT INTO storage.buckets (id, name, public) VALUES ('headshots', 'headshots', true) ON CONFLICT (id) DO NOTHING;
-INSERT INTO storage.buckets (id, name, public) VALUES ('portfolio', 'portfolio', true) ON CONFLICT (id) DO NOTHING;
-INSERT INTO storage.buckets (id, name, public) VALUES ('banners', 'banners', true) ON CONFLICT (id) DO NOTHING;
-
--- Headshots policies
-CREATE POLICY "Anyone can view headshots" ON storage.objects FOR SELECT USING (bucket_id = 'headshots');
-CREATE POLICY "Authenticated users can upload headshots" ON storage.objects FOR INSERT WITH CHECK (bucket_id = 'headshots' AND auth.role() = 'authenticated');
-CREATE POLICY "Users can update own headshots" ON storage.objects FOR UPDATE USING (bucket_id = 'headshots' AND auth.uid()::text = (storage.foldername(name))[1]);
-CREATE POLICY "Users can delete own headshots" ON storage.objects FOR DELETE USING (bucket_id = 'headshots' AND auth.uid()::text = (storage.foldername(name))[1]);
-
--- Portfolio policies
-CREATE POLICY "Anyone can view portfolio files" ON storage.objects FOR SELECT USING (bucket_id = 'portfolio');
-CREATE POLICY "Authenticated users can upload portfolio files" ON storage.objects FOR INSERT WITH CHECK (bucket_id = 'portfolio' AND auth.role() = 'authenticated');
-CREATE POLICY "Users can update own portfolio files" ON storage.objects FOR UPDATE USING (bucket_id = 'portfolio' AND auth.uid()::text = (storage.foldername(name))[1]);
-CREATE POLICY "Users can delete own portfolio files" ON storage.objects FOR DELETE USING (bucket_id = 'portfolio' AND auth.uid()::text = (storage.foldername(name))[1]);
-
--- Banners policies
-CREATE POLICY "Anyone can view banners" ON storage.objects FOR SELECT USING (bucket_id = 'banners');
-CREATE POLICY "Authenticated users can upload banners" ON storage.objects FOR INSERT WITH CHECK (bucket_id = 'banners' AND auth.role() = 'authenticated');
-CREATE POLICY "Users can update own banners" ON storage.objects FOR UPDATE USING (bucket_id = 'banners' AND auth.uid()::text = (storage.foldername(name))[1]);
-CREATE POLICY "Users can delete own banners" ON storage.objects FOR DELETE USING (bucket_id = 'banners' AND auth.uid()::text = (storage.foldername(name))[1]);
-```
-
-> If you get "policy already exists" errors, that's fine — it means the migration already created some of these. Just continue.
-
-### Step 4 — Deploy to Vercel
+### Step 3 — Deploy to Vercel
 
 1. Push this repo to **GitHub** (create a new repo, push all files).
 2. Go to [vercel.com](https://vercel.com) and sign up with your GitHub account (free).
@@ -92,7 +61,7 @@ CREATE POLICY "Users can delete own banners" ON storage.objects FOR DELETE USING
 5. Click **Deploy**. Wait ~2 minutes.
 6. Your site is now live at `https://your-project.vercel.app`.
 
-### Step 5 — Configure Supabase Auth (Important!)
+### Step 4 — Configure Supabase Auth (Important!)
 
 1. In Supabase, go to **Authentication → URL Configuration**.
 2. Set **Site URL** to your Vercel URL: `https://your-project.vercel.app`
@@ -101,7 +70,7 @@ CREATE POLICY "Users can delete own banners" ON storage.objects FOR DELETE USING
 
 > Without this step, login/signup won't redirect properly.
 
-### Step 6 — Create Your Admin Account
+### Step 5 — Create Your Admin Account
 
 1. Go to your live site and click **Enter** → sign up with your email.
 2. Check your email and confirm the signup (Supabase sends a confirmation link).
@@ -109,7 +78,7 @@ CREATE POLICY "Users can delete own banners" ON storage.objects FOR DELETE USING
 4. Find your row and set `is_admin` to `true`.
 5. Refresh the site. You now have access to the **Admin Panel** from the dashboard.
 
-### Step 7 — Invite Members
+### Step 6 — Invite Members
 
 Share the site URL. Members sign up, build their profiles, and upload work. As admin, you can:
 - Toggle member visibility (who appears on the public members page)

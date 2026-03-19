@@ -61,13 +61,13 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
     .eq("is_visible", true)
     .single();
 
-  if (!profile) return { title: "Member Not Found | Frank" };
+  if (!profile) return { title: "Member Not Found | MCS" };
 
   return {
-    title: `${profile.display_name} | Frank`,
+    title: `${profile.display_name} | MCS`,
     description: profile.role
       ? `${profile.display_name} — ${profile.role}`
-      : `${profile.display_name}'s profile on Frank`,
+      : `${profile.display_name}'s profile on MCS`,
   };
 }
 
@@ -113,7 +113,7 @@ export default async function MemberProfilePage({
             {profile.headshot_url ? (
               <img src={profile.headshot_url} alt="" className="h-full w-full object-cover blur-3xl opacity-20 scale-125" />
             ) : null}
-            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_left,_rgba(78,205,196,0.06)_0%,_transparent_50%)]" />
+            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_left,_rgba(220,38,38,0.06)_0%,_transparent_50%)]" />
             <div className="absolute inset-0 bg-gradient-to-t from-background to-transparent" />
           </div>
         )}
@@ -124,7 +124,7 @@ export default async function MemberProfilePage({
         <div className="-mt-20 sm:-mt-24">
           <Link
             href="/members"
-            className="mb-6 inline-flex items-center gap-2 text-sm font-medium text-muted transition-all duration-300 hover:gap-3 hover:text-accent"
+            className="mb-6 inline-flex items-center gap-2 rounded-lg px-4 py-2.5 text-sm font-medium text-muted transition-all duration-300 hover:bg-surface-light hover:text-accent active:scale-95"
           >
             <ArrowLeft className="h-4 w-4" />
             Back to Members
@@ -142,9 +142,16 @@ export default async function MemberProfilePage({
             </div>
 
             <div className="pb-2">
-              <span className="mb-2 inline-block text-xs font-semibold uppercase tracking-[0.2em] text-accent">
-                {profile.role || "Member"}
-              </span>
+              <div className="mb-2 flex items-center gap-2">
+                <span className="inline-block text-xs font-semibold uppercase tracking-[0.2em] text-accent">
+                  {profile.role || "Member"}
+                </span>
+                {profile.team_role_name && (
+                  <span className="inline-flex items-center gap-1 rounded-full bg-accent/10 px-2.5 py-0.5 text-[10px] font-semibold text-accent">
+                    {profile.team_role_name}
+                  </span>
+                )}
+              </div>
               <div className="flex items-center gap-3">
                 <h1 className="text-4xl font-bold tracking-tight text-foreground sm:text-5xl">
                   {profile.display_name || "Unnamed Member"}

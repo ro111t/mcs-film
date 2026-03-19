@@ -209,7 +209,7 @@ export default function EditProfilePage() {
             exit={{ opacity: 0, y: -20 }}
             className="fixed left-0 right-0 top-20 z-50 flex justify-center"
           >
-            <div className="inline-flex items-center gap-2 rounded-full bg-accent px-5 py-2.5 text-sm font-semibold text-background shadow-[0_0_30px_rgba(78,205,196,0.3)]">
+            <div className="inline-flex items-center gap-2 rounded-full bg-accent px-5 py-2.5 text-sm font-semibold text-background shadow-[0_0_30px_rgba(220,38,38,0.3)]">
               <Check className="h-4 w-4" />
               Profile saved!
             </div>
@@ -234,10 +234,13 @@ export default function EditProfilePage() {
 
       <div className="mx-auto max-w-6xl px-6 lg:px-8">
         <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}>
-          <Link href="/dashboard" className="mb-6 inline-flex items-center gap-2 text-sm font-medium text-muted transition-all duration-300 hover:gap-3 hover:text-accent">
-            <ArrowLeft className="h-4 w-4" />
-            Dashboard
-          </Link>
+          <div className="mb-6 flex items-center gap-2 text-sm">
+            <Link href="/dashboard" className="font-medium text-muted transition-all duration-300 hover:text-accent">
+              Dashboard
+            </Link>
+            <span className="text-border">/</span>
+            <span className="font-medium text-foreground">Edit Profile</span>
+          </div>
         </motion.div>
 
         {/* Banner upload */}
@@ -250,7 +253,7 @@ export default function EditProfilePage() {
           onDrop={(e) => { e.preventDefault(); setDragOverBanner(false); const f = e.dataTransfer.files[0]; if (f) uploadImage(f, "banners", "banner"); }}
           onClick={() => bannerInputRef.current?.click()}
           className={`group relative mb-2 cursor-pointer overflow-hidden rounded-3xl border-2 transition-all duration-500 ${
-            dragOverBanner ? "border-accent bg-accent/5 shadow-[0_0_60px_rgba(78,205,196,0.15)]" : "border-dashed border-border hover:border-accent/30"
+            dragOverBanner ? "border-accent bg-accent/5 shadow-[0_0_60px_rgba(220,38,38,0.15)]" : "border-dashed border-border hover:border-accent/30"
           }`}
         >
           {profile.banner_url ? (
@@ -404,15 +407,14 @@ export default function EditProfilePage() {
                 disabled={saving || !profile.display_name.trim()}
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
-                className="inline-flex items-center justify-center gap-2 rounded-2xl bg-accent px-8 py-4 text-base font-semibold text-background transition-all duration-300 hover:bg-accent/80 hover:shadow-[0_0_30px_rgba(78,205,196,0.25)] disabled:opacity-40 sm:px-10"
+                className="inline-flex items-center justify-center gap-2 rounded-2xl bg-accent px-8 py-4 text-base font-semibold text-background transition-all duration-300 hover:bg-accent/80 hover:shadow-[0_0_30px_rgba(220,38,38,0.25)] disabled:opacity-40 sm:px-10"
               >
                 {saving ? <Loader2 className="h-5 w-5 animate-spin" /> : saved ? <Check className="h-5 w-5" /> : <Save className="h-5 w-5" />}
                 {saving ? "Saving..." : saved ? "Saved!" : "Save Profile"}
               </motion.button>
-              <Link href="/dashboard/portfolio" className="group inline-flex items-center justify-center gap-2 text-sm font-medium text-muted transition-all duration-300 hover:text-accent">
-                <ImageIcon className="h-4 w-4" />
-                Continue to Portfolio
-                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+              <Link href="/dashboard/portfolio" className="group inline-flex items-center justify-center gap-2 rounded-2xl border-2 border-accent/20 bg-accent/5 px-8 py-4 text-base font-semibold text-accent transition-all duration-300 hover:border-accent/40 hover:bg-accent/10 hover:shadow-[0_0_30px_rgba(220,38,38,0.15)] sm:px-10">
+                Next: Add Your Work
+                <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
               </Link>
             </motion.div>
           </div>

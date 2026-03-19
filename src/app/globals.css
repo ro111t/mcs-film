@@ -3,8 +3,8 @@
 :root {
   --background: #0a0a0a;
   --foreground: #f0ece4;
-  --accent: #4ecdc4;
-  --accent-dim: #2ba8a0;
+  --accent: #dc2626;
+  --accent-dim: #b91c1c;
   --surface: #141414;
   --surface-light: #1c1c1c;
   --border: #262626;
@@ -66,10 +66,10 @@ body {
 
 /* Glow effects */
 .glow {
-  box-shadow: 0 0 40px rgba(78, 205, 196, 0.15);
+  box-shadow: 0 0 40px rgba(220, 38, 38, 0.15);
 }
 .glow-text {
-  text-shadow: 0 0 30px rgba(78, 205, 196, 0.3);
+  text-shadow: 0 0 30px rgba(220, 38, 38, 0.3);
 }
 
 /* Line clamp utility */

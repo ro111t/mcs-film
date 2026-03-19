@@ -25,7 +25,7 @@ import {
 export const dynamic = "force-dynamic";
 
 export const metadata = {
-  title: "Dashboard | Frank",
+  title: "Dashboard | MCS",
 };
 
 function getCompleteness(profile: any, portfolioCount: number) {
@@ -94,8 +94,14 @@ export default async function DashboardPage() {
             <h1 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
               {profile?.display_name
                 ? `Welcome back, ${profile.display_name.split(" ")[0]}`
-                : "Welcome to Frank"}
+                : "Welcome to MCS"}
             </h1>
+            {profile?.team_role_name && (
+              <div className="mt-2 inline-flex items-center gap-1.5 rounded-full bg-accent/10 px-3 py-1 text-xs font-semibold text-accent">
+                <Shield className="h-3 w-3" />
+                {profile.team_role_name}
+              </div>
+            )}
             <p className="mt-1 text-muted">
               {isComplete
                 ? "Your profile is looking great. Keep it fresh."
@@ -103,10 +109,19 @@ export default async function DashboardPage() {
             </p>
           </div>
           <div className="flex items-center gap-3">
+            {(profile?.is_admin || profile?.team_permissions?.can_manage_roles) && (
+              <Link
+                href="/dashboard/team"
+                className="inline-flex items-center gap-2 rounded-lg border border-accent/30 bg-accent/10 px-4 py-2 text-sm font-medium text-accent transition-all duration-300 hover:bg-accent/20"
+              >
+                <Users className="h-4 w-4" />
+                Team
+              </Link>
+            )}
             {profile?.is_admin && (
               <Link
                 href="/admin"
-                className="inline-flex items-center gap-2 rounded-lg border border-accent/30 bg-accent/10 px-4 py-2 text-sm font-medium text-accent transition-all duration-300 hover:bg-accent/20"
+                className="inline-flex items-center gap-2 rounded-lg border border-border px-4 py-2 text-sm font-medium text-muted transition-all duration-300 hover:border-accent/50 hover:text-accent"
               >
                 <Shield className="h-4 w-4" />
                 Admin
@@ -125,11 +140,11 @@ export default async function DashboardPage() {
         </div>
 
         {/* Hero section: Profile preview + completeness */}
-        <div className="mb-8 grid gap-6 lg:grid-cols-[1fr,380px]">
+        <div className={`mb-8 grid gap-6 ${isComplete ? "" : "lg:grid-cols-[1fr,380px]"}`}>
           {/* Large profile preview card */}
           <Link
             href="/dashboard/sections"
-            className="group relative overflow-hidden rounded-3xl border border-border bg-surface transition-all duration-500 hover:border-accent/30 hover:shadow-[0_0_60px_rgba(78,205,196,0.08)]"
+            className="group relative overflow-hidden rounded-3xl border border-border bg-surface transition-all duration-500 hover:border-accent/30 hover:shadow-[0_0_60px_rgba(220,38,38,0.08)]"
           >
             <div className="flex h-full flex-col sm:flex-row">
               {/* Headshot area */}
@@ -197,37 +212,7 @@ export default async function DashboardPage() {
           </Link>
 
           {/* Completeness panel */}
-          {isComplete ? (
-            <div className="flex flex-col items-center justify-center rounded-3xl border border-accent/20 bg-accent/[0.04] p-6 text-center">
-              <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-accent/10">
-                <svg className="h-8 w-8 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-                </svg>
-              </div>
-              <h3 className="text-lg font-bold text-foreground">Profile Complete</h3>
-              <p className="mt-1 text-sm text-muted">
-                You&apos;re all set. Keep your profile fresh and your portfolio growing.
-              </p>
-              <div className="mt-4 flex items-center gap-2">
-                {profile?.is_visible && profile?.display_name && (
-                  <Link
-                    href={`/members/${profile.id}`}
-                    className="inline-flex items-center gap-1.5 rounded-full bg-accent/10 px-4 py-2 text-xs font-semibold text-accent transition-all duration-300 hover:bg-accent/20"
-                  >
-                    <Eye className="h-3.5 w-3.5" />
-                    View Public Profile
-                  </Link>
-                )}
-                <Link
-                  href="/dashboard/sections"
-                  className="inline-flex items-center gap-1.5 rounded-full bg-surface px-4 py-2 text-xs font-medium text-muted transition-all duration-300 hover:text-foreground"
-                >
-                  <LayoutGrid className="h-3.5 w-3.5" />
-                  Customize Layout
-                </Link>
-              </div>
-            </div>
-          ) : (
+          {!isComplete && (
             <div className="flex flex-col rounded-3xl border border-border bg-surface p-6">
               <div className="mb-6 flex items-center justify-between">
                 <h3 className="text-xs font-semibold uppercase tracking-[0.15em] text-muted">
@@ -319,7 +304,7 @@ export default async function DashboardPage() {
             </div>
             <Link
               href="/dashboard/portfolio"
-              className="inline-flex items-center gap-2 rounded-xl bg-accent px-5 py-2.5 text-sm font-semibold text-background transition-all duration-300 hover:bg-accent/80 hover:shadow-[0_0_20px_rgba(78,205,196,0.2)]"
+              className="inline-flex items-center gap-2 rounded-xl bg-accent px-5 py-2.5 text-sm font-semibold text-background transition-all duration-300 hover:bg-accent/80 hover:shadow-[0_0_20px_rgba(220,38,38,0.2)]"
             >
               <Plus className="h-4 w-4" />
               {items.length > 0 ? "Manage Portfolio" : "Add Your First Piece"}
@@ -451,7 +436,7 @@ export default async function DashboardPage() {
             </div>
             <Link
               href="/dashboard/skills"
-              className="inline-flex shrink-0 items-center gap-2 rounded-xl bg-accent px-6 py-3 text-sm font-semibold text-background transition-all duration-300 hover:bg-accent/80 hover:shadow-[0_0_20px_rgba(78,205,196,0.2)]"
+              className="inline-flex shrink-0 items-center gap-2 rounded-xl bg-accent px-6 py-3 text-sm font-semibold text-background transition-all duration-300 hover:bg-accent/80 hover:shadow-[0_0_20px_rgba(220,38,38,0.2)]"
             >
               <Wrench className="h-4 w-4" />
               {(profile?.skills?.length || 0) > 0 ? "Update Skills" : "Add Skills"}
@@ -477,7 +462,7 @@ export default async function DashboardPage() {
             </div>
             <Link
               href="/dashboard/sections"
-              className="inline-flex shrink-0 items-center gap-2 rounded-xl bg-accent px-6 py-3 text-sm font-semibold text-background transition-all duration-300 hover:bg-accent/80 hover:shadow-[0_0_20px_rgba(78,205,196,0.2)]"
+              className="inline-flex shrink-0 items-center gap-2 rounded-xl bg-accent px-6 py-3 text-sm font-semibold text-background transition-all duration-300 hover:bg-accent/80 hover:shadow-[0_0_20px_rgba(220,38,38,0.2)]"
             >
               <LayoutGrid className="h-4 w-4" />
               {sectionCount > 0 ? "Edit Layout" : "Start Building"}

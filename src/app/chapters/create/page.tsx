@@ -20,7 +20,7 @@ export default function CreateChapterPage() {
     slug: "",
     school: "",
     description: "",
-    accent_color: "#4ecdc4",
+    accent_color: "#dc2626",
   });
 
   useEffect(() => {
@@ -115,7 +115,7 @@ export default function CreateChapterPage() {
           </div>
           <h1 className="text-2xl font-bold tracking-tight text-foreground">Start a New Chapter</h1>
           <p className="mt-2 text-sm text-muted">
-            Create a chapter for your school&apos;s film &amp; media collective.
+            Create an MCS chapter for your school&apos;s creative collective.
           </p>
         </div>
 
@@ -134,7 +134,7 @@ export default function CreateChapterPage() {
             <div>
               <label className="mb-1 block text-xs font-medium text-muted">URL Slug *</label>
               <div className="flex items-center gap-0 rounded-lg border border-border bg-background">
-                <span className="shrink-0 px-3 text-xs text-muted">frank.app/chapters/</span>
+                <span className="shrink-0 px-3 text-xs text-muted">commonsense.app/chapters/</span>
                 <input
                   value={form.slug}
                   onChange={(e) => setForm({ ...form, slug: e.target.value.toLowerCase().replace(/[^a-z0-9-]/g, "") })}

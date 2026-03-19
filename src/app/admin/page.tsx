@@ -5,7 +5,7 @@ import AdminPanel from "./AdminPanel";
 export const dynamic = "force-dynamic";
 
 export const metadata = {
-  title: "Admin | Frank",
+  title: "Admin | MCS",
 };
 
 export default async function AdminPage() {

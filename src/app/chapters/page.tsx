@@ -6,8 +6,8 @@ import type { Chapter } from "@/lib/types";
 export const dynamic = "force-dynamic";
 
 export const metadata = {
-  title: "Chapters | Frank",
-  description: "Find a Frank chapter at your school",
+  title: "Chapters | MCS",
+  description: "Find an MCS chapter at your school",
 };
 
 export default async function ChaptersPage() {
@@ -59,7 +59,7 @@ export default async function ChaptersPage() {
             Chapters
           </h1>
           <p className="mx-auto mt-4 max-w-lg text-muted">
-            Frank chapters at schools across the country. Find yours, or start one.
+            MCS chapters at schools across the country. Find yours, or start one.
           </p>
         </div>
 
@@ -70,7 +70,7 @@ export default async function ChaptersPage() {
               <Link
                 key={chapter.id}
                 href={`/chapters/${chapter.slug}`}
-                className="group overflow-hidden rounded-2xl border border-border bg-surface transition-all duration-500 hover:border-accent/30 hover:shadow-[0_0_40px_rgba(78,205,196,0.06)]"
+                className="group overflow-hidden rounded-2xl border border-border bg-surface transition-all duration-500 hover:border-accent/30 hover:shadow-[0_0_40px_rgba(220,38,38,0.06)]"
               >
                 {/* Banner */}
                 <div className="relative h-32 overflow-hidden bg-surface-light">
@@ -119,7 +119,7 @@ export default async function ChaptersPage() {
           <div className="rounded-3xl border border-border bg-surface py-20 text-center">
             <Film className="mx-auto mb-4 h-16 w-16 text-border-light" />
             <p className="text-lg font-semibold text-foreground">No chapters yet</p>
-            <p className="mt-2 text-sm text-muted">Be the first to start a Frank chapter at your school.</p>
+            <p className="mt-2 text-sm text-muted">Be the first to start an MCS chapter at your school.</p>
           </div>
         )}
 
@@ -127,7 +127,7 @@ export default async function ChaptersPage() {
         <div className="mt-12 rounded-3xl border border-border bg-surface p-8 text-center">
           <h2 className="text-xl font-bold text-foreground">Start a Chapter at Your School</h2>
           <p className="mx-auto mt-2 max-w-md text-sm text-muted">
-            Want to bring Frank to your campus? Start a chapter and build your film &amp; media community.
+            Want to bring MCS to your campus? Start a chapter and build your creative community.
           </p>
           {isAdmin ? (
             <Link

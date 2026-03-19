@@ -5,6 +5,7 @@ import { createClient } from "@/lib/supabase/client";
 import { useRouter } from "next/navigation";
 import {
   ArrowLeft,
+  ArrowRight,
   Plus,
   Trash2,
   Upload,
@@ -184,6 +185,9 @@ export default function PortfolioPage() {
         media_url: item.media_url,
         video_embed_url: item.video_embed_url,
         category: item.category || "",
+        section_id: item.section_id || null,
+        grid_size: item.grid_size || "medium",
+        show_info: item.show_info || "hover",
         sort_order: i,
       });
 
@@ -228,7 +232,7 @@ export default function PortfolioPage() {
             exit={{ opacity: 0, y: -20 }}
             className="fixed left-0 right-0 top-20 z-50 flex justify-center"
           >
-            <div className="inline-flex items-center gap-2 rounded-full bg-accent px-5 py-2.5 text-sm font-semibold text-background shadow-[0_0_30px_rgba(78,205,196,0.3)]">
+            <div className="inline-flex items-center gap-2 rounded-full bg-accent px-5 py-2.5 text-sm font-semibold text-background shadow-[0_0_30px_rgba(220,38,38,0.3)]">
               <Check className="h-4 w-4" />
               Portfolio saved!
             </div>
@@ -266,13 +270,13 @@ export default function PortfolioPage() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4 }}
         >
-          <Link
-            href="/dashboard"
-            className="mb-6 inline-flex items-center gap-2 text-sm font-medium text-muted transition-all duration-300 hover:gap-3 hover:text-accent"
-          >
-            <ArrowLeft className="h-4 w-4" />
-            Dashboard
-          </Link>
+          <div className="mb-6 flex items-center gap-2 text-sm">
+            <Link href="/dashboard" className="font-medium text-muted transition-all duration-300 hover:text-accent">
+              Dashboard
+            </Link>
+            <span className="text-border">/</span>
+            <span className="font-medium text-foreground">Portfolio</span>
+          </div>
         </motion.div>
 
         <motion.div
@@ -299,7 +303,7 @@ export default function PortfolioPage() {
             disabled={saving || items.length === 0}
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
-            className="mt-2 inline-flex items-center gap-2 rounded-2xl bg-accent px-7 py-3.5 text-sm font-semibold text-background transition-all duration-300 hover:bg-accent/80 hover:shadow-[0_0_30px_rgba(78,205,196,0.25)] disabled:opacity-40"
+            className="mt-2 inline-flex items-center gap-2 rounded-2xl bg-accent px-7 py-3.5 text-sm font-semibold text-background transition-all duration-300 hover:bg-accent/80 hover:shadow-[0_0_30px_rgba(220,38,38,0.25)] disabled:opacity-40"
           >
             {saving ? (
               <Loader2 className="h-4 w-4 animate-spin" />
@@ -311,6 +315,30 @@ export default function PortfolioPage() {
             {saving ? "Saving..." : saved ? "Saved!" : "Save All"}
           </motion.button>
         </motion.div>
+
+        {/* Next step CTA */}
+        {items.length > 0 && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="mb-8 rounded-2xl border border-accent/20 bg-accent/5 p-6"
+          >
+            <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+              <div>
+                <h3 className="text-sm font-bold text-foreground">Ready to customize your page?</h3>
+                <p className="mt-1 text-xs text-muted">Create custom sections, arrange your work, and build a unique layout.</p>
+              </div>
+              <Link
+                href="/dashboard/sections"
+                className="group inline-flex shrink-0 items-center gap-2 rounded-xl bg-accent px-6 py-3 text-sm font-semibold text-background transition-all duration-300 hover:bg-accent/80 hover:shadow-[0_0_20px_rgba(220,38,38,0.2)]"
+              >
+                Customize Layout
+                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+              </Link>
+            </div>
+          </motion.div>
+        )}
 
         {/* Empty state — big inspiring hero */}
         {items.length === 0 && (
@@ -326,7 +354,7 @@ export default function PortfolioPage() {
             onDrop={handleQuickDrop}
             className={`relative mb-8 overflow-hidden rounded-3xl border-2 border-dashed transition-all duration-500 ${
               dragOverId === "hero"
-                ? "border-accent bg-accent/5 shadow-[0_0_80px_rgba(78,205,196,0.1)]"
+                ? "border-accent bg-accent/5 shadow-[0_0_80px_rgba(220,38,38,0.1)]"
                 : "border-border"
             }`}
           >
@@ -349,7 +377,7 @@ export default function PortfolioPage() {
                   onClick={() => addItem("image")}
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className="inline-flex items-center gap-2 rounded-2xl bg-accent px-7 py-3.5 text-sm font-semibold text-background transition-all duration-300 hover:shadow-[0_0_30px_rgba(78,205,196,0.25)]"
+                  className="inline-flex items-center gap-2 rounded-2xl bg-accent px-7 py-3.5 text-sm font-semibold text-background transition-all duration-300 hover:shadow-[0_0_30px_rgba(220,38,38,0.25)]"
                 >
                   <Upload className="h-4 w-4" />
                   Upload Images
@@ -596,7 +624,7 @@ export default function PortfolioPage() {
               transition={{ delay: 0.3 }}
               className={`rounded-3xl border-2 border-dashed transition-all duration-500 ${
                 dragOverId === "new"
-                  ? "border-accent bg-accent/5 shadow-[0_0_60px_rgba(78,205,196,0.08)]"
+                  ? "border-accent bg-accent/5 shadow-[0_0_60px_rgba(220,38,38,0.08)]"
                   : "border-border"
               }`}
             >
@@ -611,7 +639,7 @@ export default function PortfolioPage() {
                     onClick={() => addItem("image")}
                     whileHover={{ scale: 1.04 }}
                     whileTap={{ scale: 0.96 }}
-                    className="inline-flex items-center gap-2 rounded-2xl bg-accent px-6 py-3 text-sm font-semibold text-background transition-all duration-300 hover:shadow-[0_0_20px_rgba(78,205,196,0.2)]"
+                    className="inline-flex items-center gap-2 rounded-2xl bg-accent px-6 py-3 text-sm font-semibold text-background transition-all duration-300 hover:shadow-[0_0_20px_rgba(220,38,38,0.2)]"
                   >
                     <Plus className="h-4 w-4" />
                     Add Image

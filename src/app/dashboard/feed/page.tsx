@@ -136,14 +136,22 @@ export default function FeedPage() {
 
   useEffect(() => { loadData(); }, [loadData]);
 
+  const [feedError, setFeedError] = useState("");
+
   const createPost = async () => {
     if (!userId || !newBody.trim()) return;
     setPosting(true);
-    await supabase.from("posts").insert({
+    setFeedError("");
+    const { error } = await supabase.from("posts").insert({
       author_id: userId,
       body: newBody.trim(),
       post_type: newType,
     });
+    if (error) {
+      setFeedError(error.message);
+      setPosting(false);
+      return;
+    }
     setNewBody("");
     setNewType("post");
     setPosting(false);
@@ -227,6 +235,11 @@ export default function FeedPage() {
             placeholder="Share something with the club..."
             className="w-full resize-none rounded-lg border border-border bg-background px-4 py-3 text-sm text-foreground placeholder:text-muted/50 focus:border-accent focus:outline-none"
           />
+          {feedError && (
+            <div className="mt-3 rounded-lg border border-red-500/20 bg-red-500/10 px-4 py-2.5 text-xs text-red-400">
+              {feedError}
+            </div>
+          )}
           <div className="mt-3 flex items-center justify-between">
             <div className="flex gap-1.5">
               {(["post", "announcement", "question"] as const).map((type) => {

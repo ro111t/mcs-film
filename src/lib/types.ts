@@ -75,6 +75,19 @@ export interface PortfolioItem {
   created_at: string;
 }
 
+export interface GalleryItem {
+  id: string;
+  uploaded_by: string | null;
+  title: string;
+  description: string;
+  image_url: string;
+  category: string;
+  is_featured: boolean;
+  sort_order: number;
+  created_at: string;
+  updated_at: string;
+}
+
 export interface ProfileSection {
   id: string;
   profile_id: string;

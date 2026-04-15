@@ -44,26 +44,28 @@ export default async function ExportProfilePage({
   );
 
   return (
-    <div className="min-h-screen bg-white">
-      {/* Print styles */}
-      <style jsx global>{`
-        @media print {
-          body {
-            print-color-adjust: exact;
-            -webkit-print-color-adjust: exact;
+    <>
+      <style dangerouslySetInnerHTML={{
+        __html: `
+          @media print {
+            body {
+              print-color-adjust: exact;
+              -webkit-print-color-adjust: exact;
+            }
+            .no-print {
+              display: none !important;
+            }
+            .page-break {
+              page-break-after: always;
+            }
+            @page {
+              size: 8.5in 11in;
+              margin: 0.5in;
+            }
           }
-          .no-print {
-            display: none !important;
-          }
-          .page-break {
-            page-break-after: always;
-          }
-          @page {
-            size: 8.5in 11in;
-            margin: 0.5in;
-          }
-        }
-      `}</style>
+        `
+      }} />
+      <div className="min-h-screen bg-white">
 
       {/* Print button - hidden when printing */}
       <div className="no-print fixed right-8 top-8 z-50">
@@ -187,6 +189,7 @@ export default async function ExportProfilePage({
           </p>
         </div>
       </div>
-    </div>
+      </div>
+    </>
   );
 }

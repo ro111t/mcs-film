@@ -793,8 +793,11 @@ alter table public.profiles
 
 NOTIFY pgrst, 'reload schema';
 
--- Storage buckets for headshots and portfolio (critical for uploads)
+-- Storage buckets for headshots, banners, and portfolio (critical for uploads)
 insert into storage.buckets (id, name, public) values ('headshots', 'headshots', true)
+on conflict (id) do nothing;
+
+insert into storage.buckets (id, name, public) values ('banners', 'banners', true)
 on conflict (id) do nothing;
 
 insert into storage.buckets (id, name, public) values ('portfolio', 'portfolio', true)
@@ -805,6 +808,12 @@ create policy "Anyone can view headshots" on storage.objects for select using (b
 create policy "Authenticated users can upload headshots" on storage.objects for insert with check (bucket_id = 'headshots' and auth.role() = 'authenticated');
 create policy "Users can update own headshots" on storage.objects for update using (bucket_id = 'headshots' and auth.uid()::text = (storage.foldername(name))[1]);
 create policy "Users can delete own headshots" on storage.objects for delete using (bucket_id = 'headshots' and auth.uid()::text = (storage.foldername(name))[1]);
+
+-- Storage policies for banners bucket
+create policy "Anyone can view banners" on storage.objects for select using (bucket_id = 'banners');
+create policy "Authenticated users can upload banners" on storage.objects for insert with check (bucket_id = 'banners' and auth.role() = 'authenticated');
+create policy "Users can update own banners" on storage.objects for update using (bucket_id = 'banners' and auth.uid()::text = (storage.foldername(name))[1]);
+create policy "Users can delete own banners" on storage.objects for delete using (bucket_id = 'banners' and auth.uid()::text = (storage.foldername(name))[1]);
 
 -- Storage policies for portfolio bucket
 create policy "Anyone can view portfolio files" on storage.objects for select using (bucket_id = 'portfolio');
